@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginRegisterController extends Controller
 {
+    public function index ()
+    {
+        //get data db
+        $users = User::latest()->paginate(10);
+        return view('admin.akun.index', compact('users'));
+    }
+
+
+
+    public function create()
+    {
+        return view('admin.akun.create');
+    }
     public function register()
     {
         return view('auth.register');
@@ -27,7 +40,7 @@ public function store(Request $request)
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
-        'usertype' => 'admin'
+        'usertype' => $request->usertype
     ]);
     $credentials = $request->only('email', 'password');
 Auth::attempt($credentials);
@@ -52,7 +65,7 @@ public function authenticate(Request $request)
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
         if ($request->user()->usertype == 'admin') {
-            return redirect('admin/dashboard')->withSuccess('You have successfuly registered & logged ini');
+            return redirect('admin.dashboard')->withSuccess('You have successfuly registered & logged ini');
     }
         }
         return back()->withErrors([

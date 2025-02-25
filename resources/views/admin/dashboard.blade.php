@@ -7,6 +7,8 @@
 </head>
 <body>
      <a class="nav-link" href="{{ route('siswa.index')}}">Data siswa</a>
+     <a class="nav-link" href="{{ route('akun.index')}}">Data akun</a>
+
     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">logout</a>
     <form id="logout-form" action="{{ route('logout') }}" method="POST">
         @csrf

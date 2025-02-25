@@ -38,7 +38,7 @@ class SiswaController extends Controller
         return view('admin.siswa.create');
     }
 
-    public function store(Request $request): RedirectRespon
+    public function store(Request $request): RedirectResponse
     {
         //validate form
         $validated = $request->validate([
@@ -171,7 +171,7 @@ if ($request->hasfile('image')) {
     //hapus poto lama
     Storage ::delete('publis/siswas', $datas->image);
     //update dengan poto baru
-    $datas= $update([
+    $datas-> update([
         'image' => $image->hasName(),
         'nis' => $request->nis,
         'tingkatan' =>  $request->tingkatan,
@@ -184,7 +184,7 @@ if ($request->hasfile('image')) {
 
 } else {
     //update post without image
-    $datas= $update([
+    $datas-> update([
         'nis' => $request->nis,
         'tingkatan' =>  $request->tingkatan,
         'jurusan' =>  $request->jurusan,
